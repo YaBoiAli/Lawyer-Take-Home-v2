@@ -79,3 +79,22 @@ The project is structured into several modules, each handling specific functiona
 *   `modules/neon_db_module.py`: Manages interactions with the Neon database.
 *   `static/`: Contains static files like `script.js` (JavaScript) and `styles.css` (CSS).
 *   `templates/`: Stores HTML templates, such as `index.html`.
+
+## System Architecture
+
+The following diagram illustrates the high-level architecture and data flow of the project:
+
+![System Architecture](architecture-diagram.png)
+
+**Description:**
+- **User Interaction:** Users interact with the system via the web interface to upload files, perform fuzzy or RAG search queries, and view results.
+- **Frontend:** The frontend (`index.html` and `script.js`) handles user input and communicates with the backend through API endpoints.
+- **Backend:** The backend (`app.py`) processes requests, coordinates between modules, and returns results to the frontend.
+- **Data Processing Modules:**
+  - `ocr_module.py` handles OCR and file type detection for PDFs and images.
+  - `spreadsheet_processor.py` processes spreadsheet files.
+- **Database Modules:**
+  - `neon_db_module.py` and `rag_module.py` manage data ingestion, querying, and results retrieval from the Neon and Neo4j databases, respectively.
+- **Databases:** Data is stored and retrieved from Neon and Neo4j databases as needed.
+
+> **Note:** The diagram file should be named `architecture-diagram.png` and placed in the project root. If you want to use the provided diagram, save it as `architecture-diagram.png` in the root directory.
