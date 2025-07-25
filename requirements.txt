@@ -1,0 +1,12 @@
+Flask
+Werkzeug
+PyMuPDF 
+psycopg2-binary 
+neo4j          
+groq                 
+sentence-transformers 
+yake              
+python-dotenv
+pandas
+openpyxl
+requests

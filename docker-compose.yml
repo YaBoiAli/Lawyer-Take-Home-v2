@@ -1,0 +1,15 @@
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:5001"
+    volumes:
+      - .:/app
+      - uploads:/app/uploads
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  uploads:

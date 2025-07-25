@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Document AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Legal Document AI Assistant</h1>
+            <p>Upload a document (PDF, image, or spreadsheet) to extract data and perform advanced searches.</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="card">
+            <h2>1. Upload and Process Document</h2>
+            <form id="upload-form">
+                <input type="file" id="file-input" name="file" accept=".pdf,.png,.jpg,.jpeg,.gif,.xlsx,.xls,.csv" required>
+                <div class="llm-provider-selection">
+                    <label for="llm-provider">OCR Provider:</label>
+                    <select id="llm-provider" name="llm_provider">
+                        <option value="groq">Groq</option>
+                        <option value="openrouter">OpenRouter</option>
+                    </select>
+                </div>
+                <button type="submit">Upload & Ingest</button>
+            </form>
+        </section>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <!-- Fuzzy Search -->
+            <section class="card search-box">
+                <h2>2. Fuzzy Search (Keyword Match)</h2>
+                <p>Finds pages with similar keywords across all documents.</p>
+                <form id="fuzzy-search-form">
+                    <input type="text" id="fuzzy-query" placeholder="e.g., Governing Law" required>
+                    <button type="submit">Fuzzy Search</button>
+                </form>
+            </section>
+
+            <!-- RAG Search -->
+            <section class="card search-box">
+                <h2>3. RAG Search (Semantic Q&A)</h2>
+                <p>Asks a question and gets a synthesized answer.</p>
+                <form id="rag-search-form">
+                    <input type="text" id="rag-query" placeholder="e.g., What is the termination policy?" required>
+                    <input type="text" id="rag-file-name" placeholder="Optional: Filter by document name (e.g., document.pdf)">
+                    <button type="submit">Ask RAG</button>
+                </form>
+            </section>
+        </div>
+
+        <!-- Results Section -->
+        <section id="results-section" class="card hidden">
+            <h2>Results</h2>
+            <div id="spinner" class="spinner hidden"></div>
+            <div id="results-content"></div>
+        </section>
+
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
