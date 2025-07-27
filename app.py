@@ -48,10 +48,25 @@ app_logger.info(f"🔧 NEO4J_URI loaded from environment: {NEO4J_URI}")
 # Instantiate your modules so they are ready to use
 # This is more efficient than creating them on each request
 app_logger.info("🚀 Initializing services...")
-# OCR_PROCESSOR will be initialized dynamically based on the chosen provider
-RAG_SYSTEM = Neo4jRAGSystem(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, GROQ_API_KEY) # RAG still uses Groq for now
-STRUCTURED_PROCESSOR = StructuredDataProcessor(GROQ_API_KEY)  # Initialize structured data processor
-app_logger.info("✅ Services initialized successfully")
+
+# Initialize RAG system with error handling
+try:
+    RAG_SYSTEM = Neo4jRAGSystem(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, GROQ_API_KEY)
+    app_logger.info("✅ Neo4j RAG system initialized successfully")
+except Exception as e:
+    app_logger.warning(f"⚠️ Failed to initialize Neo4j RAG system: {e}")
+    app_logger.info("📝 Neo4j features will be disabled. Please ensure Neo4j is running and accessible.")
+    RAG_SYSTEM = None
+
+# Initialize structured data processor
+try:
+    STRUCTURED_PROCESSOR = StructuredDataProcessor(GROQ_API_KEY)
+    app_logger.info("✅ Structured data processor initialized successfully")
+except Exception as e:
+    app_logger.error(f"❌ Failed to initialize structured data processor: {e}")
+    raise e
+
+app_logger.info("✅ Services initialization completed")
 
 from modules.spreadsheet_processor import SpreadsheetProcessor
 
